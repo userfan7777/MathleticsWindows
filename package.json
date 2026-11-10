@@ -1,0 +1,67 @@
+{
+  "name": "mathletics-multiverse-desktop",
+  "version": "1.0.5",
+  "description": "Desktop launcher for the official Mathletics web experience with Windows-encrypted credential autofill.",
+  "main": "main.js",
+  "author": "Local Project",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis portable",
+    "dist:installer": "electron-builder --win nsis",
+    "dist:portable": "electron-builder --win portable",
+    "pack": "electron-builder --dir"
+  },
+  "devDependencies": {
+    "electron": "^45.2.3",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.mathletics.multiverse.desktop",
+    "productName": "Mathletics Desktop",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "credentials-preload.js",
+      "credentials.html",
+      "credentials-renderer.js",
+      "config.json",
+      "package.json",
+      "assets/**/*"
+    ],
+    "asar": true,
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Mathletics Desktop",
+      "artifactName": "Mathletics-Desktop-${version}-Setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "Mathletics-Desktop-${version}-Portable.${ext}"
+    }
+  }
+}
